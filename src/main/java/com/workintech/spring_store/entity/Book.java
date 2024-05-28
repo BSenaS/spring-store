@@ -38,7 +38,6 @@ public class Book {
     //JoinTable ile Junction table bağlantısı yapılır
     //sonra join columns ile booktan -> book_author'a , inverse ile book_authordan -> authora gidilir.
 
-
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "book_author", schema = "store",
             joinColumns = @JoinColumn(name = "book_id"),
