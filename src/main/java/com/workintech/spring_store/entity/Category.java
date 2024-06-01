@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -26,5 +27,5 @@ public class Category {
     //Bunun yerine mappedBy kullan. mappedBy = "category" -> sen kategoride maplendin demek.
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH},
         mappedBy = "category")
-    private List<Book> books;
+    private List<Book> books = new ArrayList<>();
 }

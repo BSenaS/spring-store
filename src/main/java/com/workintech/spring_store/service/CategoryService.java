@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface CategoryService {
     CategoryResponse findByTitle(String title);
+
+    Category findById(Long id);
     CategoryResponse save(Category category);
 
 }
