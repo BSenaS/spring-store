@@ -7,6 +7,9 @@ import com.workintech.spring_store.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class BookServiceImpl implements BookService{
 
@@ -39,6 +42,15 @@ public class BookServiceImpl implements BookService{
         return new BookResponse(savedBook.getId(),
                 savedBook.getName(),
                 savedBook.getCategory().getTitle());
+    }
+
+    @Override
+    public List<BookResponse> getAll() {
+        List<Book> allBooks = bookRepository.findAll();
+        return allBooks.stream().map(book ->
+                new BookResponse(book.getId(), book.getName(),
+                        book.getCategory().getTitle())).collect(Collectors.toList());
+
     }
 
 

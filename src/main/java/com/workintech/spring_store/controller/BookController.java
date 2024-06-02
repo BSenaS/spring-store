@@ -9,12 +9,17 @@ import com.workintech.spring_store.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/book")
 public class BookController {
 
-    private CategoryService categoryService;
     private BookService bookService;
+
+    //Kendi sınıfının reposu haricin de başka repolarla konusma ihtiyacı duyarsan, servicelerini çağır ki kod tekrarından kurtul.
+    private CategoryService categoryService;
+
 
     @Autowired
     public BookController(CategoryService categoryService, BookService bookService) {
@@ -22,7 +27,15 @@ public class BookController {
         this.bookService = bookService;
     }
 
+    @GetMapping
+    public List<BookResponse> findAllBooks(){
+        return bookService.getAll();
+    }
+
+
     //long category_id , Book book gelecek
+    //ilgili kategoriyi bul ve kitapla eşleştirip veritabanına kaydet.
+    //Eğer logic küçük ise bunu controller da tutabiliriz.Ama logic büyük ise, logic kısmını service'e taşımak daha mantıklı.
     @PostMapping("/{category_id}")
     public BookResponse save(@PathVariable long category_id,
                              @RequestBody Book book){
